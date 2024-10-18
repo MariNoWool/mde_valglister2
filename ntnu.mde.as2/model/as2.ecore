@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="as2" nsURI="http://www.ntnu.no/mde/as2" nsPrefix="as2">
+  <eClassifiers xsi:type="ecore:EClass" name="University" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" upperBound="-1" eType="#//User"
+        eOpposite="#//User/university"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="faculties" lowerBound="1"
+        upperBound="-1" eType="#//Faculty" changeable="false" volatile="true" transient="true"
+        derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="User" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="university" lowerBound="1"
+        eType="#//University" eOpposite="#//University/user"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listsOwned" upperBound="-1"
+        eType="#//ElectoralRoll" eOpposite="#//ElectoralRoll/owner"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElectionStaff" eSuperTypes="#//User"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StudentAssociation" eSuperTypes="#//User"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Student" eSuperTypes="#//User">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="canBelongToOnlyOneStudyProgramme canExistOnlyOnceOnARoll canOnlyRunForAssociatedBoards"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentlyEnrolled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enrolledIn" lowerBound="1"
+        eType="#//StudyProgramme" eOpposite="#//StudyProgramme/students"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Faculty" eSuperTypes="#//Entity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="canBelongToOnlyOneUniversity"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="departments" lowerBound="1"
+        upperBound="-1" eType="#//Department" changeable="false" volatile="true" transient="true"
+        derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Department" eSuperTypes="#//Entity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="canBelongToOnlyOneFaculty"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="studyprogrammes" lowerBound="1"
+        upperBound="-1" eType="#//StudyProgramme" changeable="false" volatile="true"
+        transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StudyProgramme" eSuperTypes="#//Entity">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="canBelongToOnlyOneDepartment"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="students" upperBound="-1"
+        eType="#//Student" eOpposite="#//Student/enrolledIn"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Board">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="electoralroll" eType="#//ElectoralRoll"
+        eOpposite="#//ElectoralRoll/board"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElectoralRoll">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="board" lowerBound="1" eType="#//Board"
+        eOpposite="#//Board/electoralroll"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
+        eType="#//Student"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//User"
+        eOpposite="#//User/listsOwned"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="board" eType="#//Board"/>
+  </eClassifiers>
+</ecore:EPackage>

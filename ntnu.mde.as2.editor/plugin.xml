@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated as2 -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="ntnu.mde.as2.presentation.As2ModelWizardID"
+            name="%_UI_As2ModelWizard_label"
+            class="ntnu.mde.as2.presentation.As2ModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/As2ModelFile.gif">
+         <description>%_UI_As2ModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated as2 -->
+      <editor
+            id="ntnu.mde.as2.presentation.As2EditorID"
+            name="%_UI_As2Editor_label"
+            icon="icons/full/obj16/As2ModelFile.gif"
+            extensions="as2"
+            class="ntnu.mde.as2.presentation.As2Editor"
+            contributorClass="ntnu.mde.as2.presentation.As2ActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
